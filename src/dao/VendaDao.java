@@ -28,15 +28,15 @@ public class VendaDao {
 
             PreparedStatement objpat = objbanco.conexao.prepareStatement(sql);
 
-            java.sql.Date datasql;//variavel data do tipo sql
-            datasql = new java.sql.Date(obj.getData().getTime());//converte data da util para data sql
+            java.sql.Timestamp datasql;
+            datasql = new java.sql.Timestamp(obj.getData().getTime());
 
             //seta os valores no banco
             objpat.setInt(1, obj.getQuantidade());
             objpat.setFloat(2, obj.getPreço());
             objpat.setInt(3, obj.getIdReceita());
             objpat.setInt(4, obj.getIdProduto());
-            objpat.setDate(5, datasql);
+            objpat.setTimestamp(5, datasql);
 
             objpat.executeUpdate();
             JOptionPane.showMessageDialog(null, "cliente gravado no banco com sucesso");
@@ -60,15 +60,15 @@ public class VendaDao {
 
             PreparedStatement objpat = objbanco.conexao.prepareStatement(sql);
 
-            java.sql.Date datasql;//variavel data do tipo sql
-            datasql = new java.sql.Date(obj.getData().getTime());//converte data da util para data sql
+            java.sql.Timestamp datasql;
+            datasql = new java.sql.Timestamp(obj.getData().getTime());
 
             //seta os valores no banco
             objpat.setInt(1, obj.getQuantidade());
             objpat.setFloat(2, obj.getPreço());
             objpat.setInt(3, obj.getIdReceita());
             objpat.setInt(4, obj.getIdProduto());
-            objpat.setDate(5, datasql);
+            objpat.setTimestamp(5, datasql);
 
             objpat.executeUpdate();
 

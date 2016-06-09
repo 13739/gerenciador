@@ -42,9 +42,9 @@ public class Gerenciador {
         rec.setComissão(666666);
         rec.setValor(7000000);
         rec.setIdFuncionario(1);
-       
-         rec.setIdCliente(2);
-         rec.setIdReceita(5);
+
+        rec.setIdCliente(2);
+        rec.setIdReceita(5);
         //Cliente client = new Cliente();
         //ClienteDao clientdao = new ClienteDao();
         /* client.setEndereço("30 inserido pela controller mesmo");
@@ -52,34 +52,32 @@ public class Gerenciador {
         client.setCpf(189569343);
         //client.setIdCliente(5);
         client.setTelefone("534534897589alt3");
-        */
+         */
         Calendar data = Calendar.getInstance();
         //data.getTime();
         Date dataf = data.getTime();
 
-       // JOptionPane.showMessageDialog(null, "\n" + dataf);
-        rec.setData(data.getTime());
+        //
+        JOptionPane.showMessageDialog(null, "\n" + dataf);
+       rec.setData(dataf);
 
         //client.setEmail("meuemail@chinelão");
-        //CtrlReceita rece = new CtrlReceita();
-        //ReceitaDao recdao= new ReceitaDao();
+        CtrlReceita rece = new CtrlReceita();
+        ReceitaDao recdao = new ReceitaDao();
         //recdao.alterar(rec);
-//rece.CtrlInserirReceita(rec);
+rece.CtrlInserirReceita(rec);
 
-           Venda ven = new Venda(); 
-           VendaDao vendao = new VendaDao(); 
-          // ven.setComissão(20);
-           ven.setIdFuncionario(2);
-           ven.setIdProduto(1);
-           ven.setIdReceita(8);
-           ven.setIdVenda(6);
-           ven.setQuantidade(666);
-           ven.setPreço(3409);
-           ven.setData(dataf);
-           vendao.deletar(ven);
-           
-           
-
+        Venda ven = new Venda();
+        VendaDao vendao = new VendaDao();
+        // ven.setComissão(20);
+        ven.setIdFuncionario(1);
+        ven.setIdProduto(1);
+        ven.setIdReceita(11);
+        ven.setIdVenda(0);
+        ven.setQuantidade(666);
+        ven.setPreço(3409);
+        ven.setData(dataf);
+        vendao.inserir(ven);
+       
     }
-
 }

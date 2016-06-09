@@ -35,13 +35,13 @@ public class ReceitaDao {
 
             PreparedStatement objpat = objbanco.conexao.prepareStatement(sql);
 
-            java.sql.Date datasql;//variavel data do tipo sql
-            datasql = new java.sql.Date(obj.getData().getTime());//converte data da util para data sql
+            java.sql.Timestamp datasql;
+            datasql = new java.sql.Timestamp(obj.getData().getTime());
 
             //seta os valores no banco
             objpat.setInt(1, obj.getIdFuncionario());
             objpat.setInt(2, obj.getIdCliente());
-            objpat.setDate(3, datasql);
+            objpat.setTimestamp(3, datasql);
             objpat.setFloat(4, obj.getComissão());
             objpat.setFloat(5, obj.getValor());
 
@@ -61,21 +61,19 @@ public class ReceitaDao {
             String sql = "UPDATE  receitas SET "
                     + "funcionarios_idfuncionarios=?,clientes_idcliente=?,Data=?,comissao=?,valor=? "
                     + "WHERE idreceita = '" + obj.getIdReceita() + "'";
-                    
-                    
-                   
+
             BancoMySQL objbanco = new BancoMySQL(); //cria um objeto de banco de dados 
             objbanco.conectar();//usar o objeto de banco de dados para conectar
 
             PreparedStatement objpat = objbanco.conexao.prepareStatement(sql);
 
-            java.sql.Date datasql;//variavel data do tipo sql
-            datasql = new java.sql.Date(obj.getData().getTime());//converte data da util para data sql
+            java.sql.Timestamp datasql;
+            datasql = new java.sql.Timestamp(obj.getData().getTime());
 
             //seta os valores no banco
             objpat.setInt(1, obj.getIdFuncionario());
             objpat.setInt(2, obj.getIdCliente());
-            objpat.setDate(3, datasql);
+            objpat.setTimestamp(3, datasql);
             objpat.setFloat(4, obj.getComissão());
             objpat.setFloat(5, obj.getValor());
 
