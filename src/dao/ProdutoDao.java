@@ -6,7 +6,11 @@
 package dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -35,7 +39,7 @@ public class ProdutoDao {
 
 
             //seta os valores no banco
-            objpat.setString(1, obj.getNomeProduto());
+            objpat.setString(1, obj.getNome());
             objpat.setInt(2, obj.getQuantidade());
             objpat.setFloat(3,obj.getPreço());
             objpat.setInt(4, obj.getIdFornecedor());
@@ -65,7 +69,7 @@ public class ProdutoDao {
 
             
             //seta os valores no banco
-           objpat.setString(1, obj.getNomeProduto());
+           objpat.setString(1, obj.getNome());
             objpat.setInt(2, obj.getQuantidade());
             objpat.setFloat(3,obj.getPreço());
             objpat.setInt(4, obj.getIdFornecedor());
@@ -100,4 +104,39 @@ public class ProdutoDao {
 
     }
     
-}
+    
+   public  List<Produto>  listar() throws SQLException{
+            List<Produto> lista = new ArrayList<Produto>();
+            ResultSet tabela;
+            Statement state;
+            BancoMySQL banco = new BancoMySQL();
+            String sql = "SELECT * into produtos";
+            
+            state =banco.conexao.createStatement();
+            
+            tabela=state.executeQuery(sql);
+            
+            tabela.beforeFirst();
+            
+            while(tabela.next()){
+             
+                Produto produto = new Produto();
+                produto.setNome(tabela.getString("nome"));
+                produto.setPreço(tabela.getFloat("preço"));
+                //produto.setQuantidade(tabela.getInt("quantidade"));
+                lista.add(produto);
+                JOptionPane.showMessageDialog("produto \n" + produto.getNome());
+        }
+                
+                
+            return lista;
+     
+         }
+         }
+
+            
+            
+            
+        
+   
+

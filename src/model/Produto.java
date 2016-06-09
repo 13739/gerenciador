@@ -11,7 +11,7 @@ package model;
  */
 public class Produto {
     private int idProduto;
-    private String nomeProduto;
+    private String nome;
     private int quantidade;
     private float preço;
     private int idFornecedor;
@@ -31,17 +31,17 @@ public class Produto {
     }
 
     /**
-     * @return the nomeProduto
+     * @return the nome
      */
-    public String getNomeProduto() {
-        return nomeProduto;
+    public String getNome() {
+        return nome;
     }
 
     /**
-     * @param nomeProduto the nomeProduto to set
+     * @param nome the nome to set
      */
-    public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     /**

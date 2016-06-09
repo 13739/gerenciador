@@ -8,6 +8,7 @@ package view;
 import controller.CtrlCliente;
 import controller.CtrlReceita;
 import dao.ClienteDao;
+import dao.ProdutoDao;
 import dao.ReceitaDao;
 import dao.VendaDao;
 import util.BancoMySQL;
@@ -78,6 +79,9 @@ rece.CtrlInserirReceita(rec);
         ven.setPreço(3409);
         ven.setData(dataf);
         vendao.inserir(ven);
+        
+        ProdutoDao prod =new ProdutoDao();
+        prod.listar();
        
     }
 }
