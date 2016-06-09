@@ -14,7 +14,7 @@ public class Produto {
     private String nomeProduto;
     private int quantidade;
     private float preço;
-    private String idFornecedor;
+    private int idFornecedor;
 
     /**
      * @return the idProduto
@@ -75,15 +75,18 @@ public class Produto {
     /**
      * @return the idFornecedor
      */
-    public String getIdFornecedor() {
+    public int getIdFornecedor() {
         return idFornecedor;
     }
 
     /**
      * @param idFornecedor the idFornecedor to set
      */
-    public void setIdFornecedor(String idFornecedor) {
+    public void setIdFornecedor(int idFornecedor) {
         this.idFornecedor = idFornecedor;
     }
+
     
+    
+
 }
