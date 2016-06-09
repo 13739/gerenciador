@@ -5,16 +5,20 @@
  */
 package model;
 
+import java.util.Date;
+
 /**
  *
  * @author Daniel
  */
-public class Venda extends Receita{
+public class Venda extends Receita {
+
     private int idVenda;
     private int quantidade;
     private int idReceita;
     private int idProduto;
     private float preço;
+    private Date data;
 
     /**
      * @return the idVenda
@@ -84,5 +88,19 @@ public class Venda extends Receita{
      */
     public void setPreço(float preço) {
         this.preço = preço;
+    }
+
+    /**
+     * @return the data
+     */
+    public Date getData() {
+        return data;
+    }
+
+    /**
+     * @param data the data to set
+     */
+    public void setData(Date data) {
+        this.data = data;
     }
 }

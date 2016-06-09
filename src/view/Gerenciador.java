@@ -9,6 +9,7 @@ import controller.CtrlCliente;
 import controller.CtrlReceita;
 import dao.ClienteDao;
 import dao.ReceitaDao;
+import dao.VendaDao;
 import util.BancoMySQL;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -22,6 +23,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Cliente;
 import model.Receita;
+import model.Venda;
 import sun.java2d.pipe.SpanShapeRenderer.Simple;
 import static sun.misc.Version.println;
 
@@ -59,10 +61,24 @@ public class Gerenciador {
         rec.setData(data.getTime());
 
         //client.setEmail("meuemail@chinelão");
-        CtrlReceita rece = new CtrlReceita();
-        ReceitaDao recdao= new ReceitaDao();
-        recdao.alterar(rec);
+        //CtrlReceita rece = new CtrlReceita();
+        //ReceitaDao recdao= new ReceitaDao();
+        //recdao.alterar(rec);
 //rece.CtrlInserirReceita(rec);
+
+           Venda ven = new Venda(); 
+           VendaDao vendao = new VendaDao(); 
+          // ven.setComissão(20);
+           ven.setIdFuncionario(2);
+           ven.setIdProduto(1);
+           ven.setIdReceita(8);
+           ven.setIdVenda(6);
+           ven.setQuantidade(666);
+           ven.setPreço(3409);
+           ven.setData(dataf);
+           vendao.deletar(ven);
+           
+           
 
     }
 
