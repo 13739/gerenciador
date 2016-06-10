@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -37,7 +38,7 @@ public class Gerenciador {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         Receita rec = new Receita();
         rec.setComissão(666666);
@@ -81,7 +82,7 @@ rece.CtrlInserirReceita(rec);
         vendao.inserir(ven);
         
         ProdutoDao prod =new ProdutoDao();
-        prod.listar();
-       
+       List Produto= prod.listar();
+      
     }
 }

@@ -19,10 +19,8 @@ import model.Receita;
 import model.Venda;
 import util.BancoMySQL;
 
-
 public class ProdutoDao {
-     
-    
+
     public void inserir(Produto obj) { //recebe um objeto cliente
 
         try {
@@ -37,13 +35,11 @@ public class ProdutoDao {
 
             PreparedStatement objpat = objbanco.conexao.prepareStatement(sql);
 
-
             //seta os valores no banco
             objpat.setString(1, obj.getNome());
             objpat.setInt(2, obj.getQuantidade());
-            objpat.setFloat(3,obj.getPreço());
+            objpat.setFloat(3, obj.getPreço());
             objpat.setInt(4, obj.getIdFornecedor());
-           
 
             objpat.executeUpdate();
             JOptionPane.showMessageDialog(null, "produto gravado no banco com sucesso");
@@ -53,8 +49,8 @@ public class ProdutoDao {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     public void alterar(Produto obj) {
+
+    public void alterar(Produto obj) {
 
         try {
 
@@ -67,11 +63,10 @@ public class ProdutoDao {
 
             PreparedStatement objpat = objbanco.conexao.prepareStatement(sql);
 
-            
             //seta os valores no banco
-           objpat.setString(1, obj.getNome());
+            objpat.setString(1, obj.getNome());
             objpat.setInt(2, obj.getQuantidade());
-            objpat.setFloat(3,obj.getPreço());
+            objpat.setFloat(3, obj.getPreço());
             objpat.setInt(4, obj.getIdFornecedor());
             objpat.executeUpdate();
 
@@ -83,6 +78,7 @@ public class ProdutoDao {
             JOptionPane.showMessageDialog(null, "" + ex);
         }
     }
+
     public void deletar(Produto obj) {
         try {
 
@@ -103,40 +99,29 @@ public class ProdutoDao {
         }
 
     }
-    
-    
-   public  List<Produto>  listar() throws SQLException{
-            List<Produto> lista = new ArrayList<Produto>();
-            ResultSet tabela;
-            Statement state;
-            BancoMySQL banco = new BancoMySQL();
-            String sql = "SELECT * into produtos";
-            
-            state =banco.conexao.createStatement();
-            
-            tabela=state.executeQuery(sql);
-            
-            tabela.beforeFirst();
-            
-            while(tabela.next()){
-             
-                Produto produto = new Produto();
-                produto.setNome(tabela.getString("nome"));
-                produto.setPreço(tabela.getFloat("preço"));
-                //produto.setQuantidade(tabela.getInt("quantidade"));
-                lista.add(produto);
-                JOptionPane.showMessageDialog("produto \n" + produto.getNome());
+
+    public List<Produto> listar() throws SQLException {
+        List<Produto> lista = new ArrayList<Produto>();
+        ResultSet tabela;
+        Statement state;
+        BancoMySQL banco = new BancoMySQL();
+        String sql = "SELECT * from produtos";
+
+        state = banco.conexao.prepareStatement(sql);
+        tabela = state.executeQuery(sql);
+
+        tabela.beforeFirst();
+
+        while (tabela.next()) {
+
+            Produto produto = new Produto();
+            produto.setNome(tabela.getString("nome"));
+            produto.setPreço(tabela.getFloat("preço"));
+            lista.add(produto);
+
         }
-                
-                
-            return lista;
-     
-         }
-         }
 
-            
-            
-            
-        
-   
+        return lista;
 
+    }
+}
