@@ -10,5 +10,6 @@ package util;
  * @author daniel
  */
 public class teste {
+    int q ,q ,wew;
     
 }
