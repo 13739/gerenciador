@@ -56,7 +56,6 @@ public class Gerenciador {
         client.setTelefone("534534897589alt3");
          */
         Calendar data = Calendar.getInstance();
-        //data.getTime();
         Date dataf = data.getTime();
 
         //

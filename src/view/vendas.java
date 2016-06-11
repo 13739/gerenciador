@@ -5,6 +5,17 @@
  */
 package view;
 
+import controller.CtrlProduto;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Produto;
+import util.BancoMySQL;
+
 /**
  *
  * @author Daniel
@@ -26,6 +37,7 @@ public class vendas extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jLabel2 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -52,7 +64,7 @@ public class vendas extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        jBcadastrodecliente = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
@@ -123,7 +135,34 @@ public class vendas extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel8.setText("troco");
 
-        jComboproduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboproduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "selecionar produto" }));
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jComboproduto, org.jdesktop.beansbinding.ObjectProperty.create(), jComboproduto, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        jComboproduto.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                jComboprodutoComponentAdded(evt);
+            }
+        });
+        jComboproduto.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jComboprodutoAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jComboproduto.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboprodutoPopupMenuWillBecomeVisible(evt);
+            }
+        });
         jComboproduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboprodutoActionPerformed(evt);
@@ -149,10 +188,10 @@ public class vendas extends javax.swing.JFrame {
 
         jLabel5.setText("preço");
 
-        jButton3.setText("cadastrar no cliente");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jBcadastrodecliente.setText("cadastrar no cliente");
+        jBcadastrodecliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jBcadastrodeclienteActionPerformed(evt);
             }
         });
 
@@ -179,8 +218,8 @@ public class vendas extends javax.swing.JFrame {
                                 .addGap(25, 25, 25)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboproduto, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(72, 72, 72)
+                                    .addComponent(jComboproduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(55, 55, 55)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTextField3)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
@@ -191,7 +230,7 @@ public class vendas extends javax.swing.JFrame {
                                     .addComponent(jTextField1)
                                     .addComponent(jTrecebido))
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3)
+                                .addComponent(jBcadastrodecliente)
                                 .addGap(385, 385, 385)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -271,7 +310,7 @@ public class vendas extends javax.swing.JFrame {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 20, Short.MAX_VALUE)
-                                .addComponent(jButton3)))))
+                                .addComponent(jBcadastrodecliente)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(7, 7, 7)
@@ -295,13 +334,45 @@ public class vendas extends javax.swing.JFrame {
                 .addGap(32, 32, 32))
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboprodutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboprodutoActionPerformed
-        
+       try {
+            /* CtrlProduto crtlpro= new CtrlProduto();
+            List listap <Produto> = crtlpro.CtrlListarProduto();
+            jComboproduto.setListeners(listenerType)
+            */
+            ResultSet tabela;
+            PreparedStatement state;
+            BancoMySQL banco = new BancoMySQL();
+            String sql ="SELECT * from produtos";
+            
+            
+            state = banco.conexao.prepareStatement(sql);
+            tabela = state.executeQuery(sql);
+            
+            tabela.beforeFirst();
+            
+            while (tabela.next()) {
+                
+                Produto produto = new Produto();
+                
+                produto.setNome(tabela.getString("nome"));
+                produto.setPreço(tabela.getFloat("preço"));
+               
+                jComboproduto.addItem(produto);
+                
+            }
+            jComboproduto.setAlignmentX(TOP_ALIGNMENT);
+        } catch (SQLException ex) {
+            Logger.getLogger(vendas.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
 
-
+       
     }//GEN-LAST:event_jComboprodutoActionPerformed
 
     private void jTtrocoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTtrocoActionPerformed
@@ -320,9 +391,88 @@ public class vendas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jBcadastrodeclienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcadastrodeclienteActionPerformed
+            RegistroClientes reg =new RegistroClientes();
+           
+          reg.setVisible(rootPaneCheckingEnabled);
+          
+                    
+                    
+// TODO add your handling code here:
+    }//GEN-LAST:event_jBcadastrodeclienteActionPerformed
+
+    private void jComboprodutoComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jComboprodutoComponentAdded
+     try {
+            /* CtrlProduto crtlpro= new CtrlProduto();
+            List listap <Produto> = crtlpro.CtrlListarProduto();
+            jComboproduto.setListeners(listenerType)
+            */
+            ResultSet tabela;
+            PreparedStatement state;
+            BancoMySQL banco = new BancoMySQL();
+            String sql ="SELECT * from produtos";
+            
+            
+            state = banco.conexao.prepareStatement(sql);
+            tabela = state.executeQuery(sql);
+            
+            tabela.beforeFirst();
+            
+            while (tabela.next()) {
+                
+                Produto produto = new Produto();
+                produto.setNome(tabela.getString("nome"));
+                produto.setPreço(tabela.getFloat("preço"));
+                jComboproduto.addItem(produto.getNome());
+                
+            }
+          //  this.jComboproduto.add(this);
+           // this.jComboproduto.isVisible();
+        } catch (SQLException ex) {
+            Logger.getLogger(vendas.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+
+           // TODO add your handling code here:
+    }//GEN-LAST:event_jComboprodutoComponentAdded
+
+    private void jComboprodutoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jComboprodutoAncestorAdded
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jComboprodutoAncestorAdded
+
+    private void jComboprodutoPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboprodutoPopupMenuWillBecomeVisible
+        // TODO add your handling code here:
+        try {
+            /* CtrlProduto crtlpro= new CtrlProduto();
+            List listap <Produto> = crtlpro.CtrlListarProduto();
+            jComboproduto.setListeners(listenerType)
+            */
+            ResultSet tabela;
+            PreparedStatement state;
+            BancoMySQL banco = new BancoMySQL();
+            String sql ="SELECT * from produtos";
+            
+            
+            state = banco.conexao.prepareStatement(sql);
+            tabela = state.executeQuery(sql);
+            
+            tabela.beforeFirst();
+            
+            while (tabela.next()) {
+                
+                Produto produto = new Produto();
+                produto.setNome(tabela.getString("nome"));
+                produto.setPreço(tabela.getFloat("preço"));
+                jComboproduto.addItem(produto.getNome());
+                
+            }
+            //this.jComboproduto.add(this);
+            //this.jComboproduto.isVisible();
+        } catch (SQLException ex) {
+            Logger.getLogger(vendas.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+    }//GEN-LAST:event_jComboprodutoPopupMenuWillBecomeVisible
 
     /**
      * @param args the command line arguments
@@ -360,9 +510,9 @@ public class vendas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBcadastrodecliente;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboproduto;
     private javax.swing.JLabel jLabel1;
@@ -387,5 +537,6 @@ public class vendas extends javax.swing.JFrame {
     private javax.swing.JTextField jTrecebido;
     private javax.swing.JTextField jTtroco;
     private javax.swing.JTextField jTvalortotal;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

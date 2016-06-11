@@ -53,10 +53,10 @@
                               </Group>
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel3" alignment="0" min="-2" pref="119" max="-2" attributes="0"/>
-                                  <Component id="jComboproduto" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" min="-2" pref="119" max="-2" attributes="0"/>
+                                  <Component id="jComboproduto" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jTextField3" max="32767" attributes="0"/>
                                   <Component id="jLabel5" pref="68" max="32767" attributes="0"/>
@@ -70,7 +70,7 @@
                                   <Component id="jTrecebido" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBcadastrodecliente" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="385" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -179,7 +179,7 @@
                           <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
-                              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBcadastrodecliente" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -338,15 +338,18 @@
     <Component class="javax.swing.JComboBox" name="jComboproduto">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="1">
+            <StringItem index="0" value="selecionar produto"/>
           </StringArray>
         </Property>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="selectedItem" source="jComboproduto" target="jComboproduto" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
       <Events>
+        <EventHandler event="componentAdded" listener="java.awt.event.ContainerListener" parameters="java.awt.event.ContainerEvent" handler="jComboprodutoComponentAdded"/>
+        <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jComboprodutoAncestorAdded"/>
+        <EventHandler event="popupMenuWillBecomeVisible" listener="javax.swing.event.PopupMenuListener" parameters="javax.swing.event.PopupMenuEvent" handler="jComboprodutoPopupMenuWillBecomeVisible"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboprodutoActionPerformed"/>
       </Events>
     </Component>
@@ -399,12 +402,12 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField3">
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="jBcadastrodecliente">
       <Properties>
         <Property name="text" type="java.lang.String" value="cadastrar no cliente"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBcadastrodeclienteActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton4">
