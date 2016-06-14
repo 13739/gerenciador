@@ -80,8 +80,6 @@ rece.CtrlInserirReceita(rec);
         ven.setData(dataf);
         vendao.inserir(ven);
         
-        ProdutoDao prod =new ProdutoDao();
-       List Produto= prod.listar();
       
     }
 }

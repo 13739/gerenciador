@@ -6,13 +6,15 @@
 package view;
 
 import controller.CtrlProduto;
-import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Produto;
 import util.BancoMySQL;
 
@@ -135,9 +137,8 @@ public class vendas extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel8.setText("troco");
 
-        jComboproduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "selecionar produto" }));
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jComboproduto, org.jdesktop.beansbinding.ObjectProperty.create(), jComboproduto, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jComboproduto, org.jdesktop.beansbinding.ELProperty.create("${selectedItem}"), jComboproduto, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        binding.setSourceNullValue(null);
         bindingGroup.addBinding(binding);
 
         jComboproduto.addContainerListener(new java.awt.event.ContainerAdapter() {
@@ -146,12 +147,12 @@ public class vendas extends javax.swing.JFrame {
             }
         });
         jComboproduto.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jComboprodutoAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jComboproduto.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
@@ -218,8 +219,8 @@ public class vendas extends javax.swing.JFrame {
                                 .addGap(25, 25, 25)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboproduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(55, 55, 55)
+                                    .addComponent(jComboproduto, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTextField3)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
@@ -340,39 +341,32 @@ public class vendas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboprodutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboprodutoActionPerformed
-       try {
-            /* CtrlProduto crtlpro= new CtrlProduto();
-            List listap <Produto> = crtlpro.CtrlListarProduto();
-            jComboproduto.setListeners(listenerType)
-            */
-            ResultSet tabela;
-            PreparedStatement state;
-            BancoMySQL banco = new BancoMySQL();
-            String sql ="SELECT * from produtos";
+
+        CtrlProduto cont = new CtrlProduto();
+            int i=0;
             
-            
-            state = banco.conexao.prepareStatement(sql);
-            tabela = state.executeQuery(sql);
-            
-            tabela.beforeFirst();
-            
-            while (tabela.next()) {
-                
-                Produto produto = new Produto();
-                
-                produto.setNome(tabela.getString("nome"));
-                produto.setPreço(tabela.getFloat("preço"));
-               
-                jComboproduto.addItem(produto);
-                
+            try {
+            ResultSet resulsetpro= cont.CtrlListarProduto();
+            List<String> lista = new  ArrayList<>();
+
+            while (resulsetpro.next()) {
+
+                //Produto produto = new Produto();
+                lista.add(resulsetpro.getString(2));
+               // produto.setPreço(resulsetpro.getFloat(4));
+                //lista.get(produto);
+                jComboproduto.addItem(lista.get(i));
+                // jTpreço.get(produto.getPreço());
+               i++;
             }
-            jComboproduto.setAlignmentX(TOP_ALIGNMENT);
+            
+            
+
         } catch (SQLException ex) {
             Logger.getLogger(vendas.class.getName()).log(Level.SEVERE, null, ex);
-            
         }
 
-       
+JOptionPane.showMessageDialog(null, "entro no action performat \n");
     }//GEN-LAST:event_jComboprodutoActionPerformed
 
     private void jTtrocoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTtrocoActionPerformed
@@ -392,86 +386,28 @@ public class vendas extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jBcadastrodeclienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcadastrodeclienteActionPerformed
-            RegistroClientes reg =new RegistroClientes();
-           
-          reg.setVisible(rootPaneCheckingEnabled);
-          
-                    
-                    
+        RegistroClientes reg = new RegistroClientes();
+
+        reg.setVisible(rootPaneCheckingEnabled);
+
 // TODO add your handling code here:
     }//GEN-LAST:event_jBcadastrodeclienteActionPerformed
 
     private void jComboprodutoComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jComboprodutoComponentAdded
-     try {
-            /* CtrlProduto crtlpro= new CtrlProduto();
-            List listap <Produto> = crtlpro.CtrlListarProduto();
-            jComboproduto.setListeners(listenerType)
-            */
-            ResultSet tabela;
-            PreparedStatement state;
-            BancoMySQL banco = new BancoMySQL();
-            String sql ="SELECT * from produtos";
-            
-            
-            state = banco.conexao.prepareStatement(sql);
-            tabela = state.executeQuery(sql);
-            
-            tabela.beforeFirst();
-            
-            while (tabela.next()) {
-                
-                Produto produto = new Produto();
-                produto.setNome(tabela.getString("nome"));
-                produto.setPreço(tabela.getFloat("preço"));
-                jComboproduto.addItem(produto.getNome());
-                
-            }
-          //  this.jComboproduto.add(this);
-           // this.jComboproduto.isVisible();
-        } catch (SQLException ex) {
-            Logger.getLogger(vendas.class.getName()).log(Level.SEVERE, null, ex);
-            
-        }
 
-           // TODO add your handling code here:
+        
+        JOptionPane.showMessageDialog(null, "entro no componente added \n");
+        
     }//GEN-LAST:event_jComboprodutoComponentAdded
 
     private void jComboprodutoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jComboprodutoAncestorAdded
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "entro no ancestor \n");
     }//GEN-LAST:event_jComboprodutoAncestorAdded
 
     private void jComboprodutoPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboprodutoPopupMenuWillBecomeVisible
-        // TODO add your handling code here:
-        try {
-            /* CtrlProduto crtlpro= new CtrlProduto();
-            List listap <Produto> = crtlpro.CtrlListarProduto();
-            jComboproduto.setListeners(listenerType)
-            */
-            ResultSet tabela;
-            PreparedStatement state;
-            BancoMySQL banco = new BancoMySQL();
-            String sql ="SELECT * from produtos";
-            
-            
-            state = banco.conexao.prepareStatement(sql);
-            tabela = state.executeQuery(sql);
-            
-            tabela.beforeFirst();
-            
-            while (tabela.next()) {
-                
-                Produto produto = new Produto();
-                produto.setNome(tabela.getString("nome"));
-                produto.setPreço(tabela.getFloat("preço"));
-                jComboproduto.addItem(produto.getNome());
-                
-            }
-            //this.jComboproduto.add(this);
-            //this.jComboproduto.isVisible();
-        } catch (SQLException ex) {
-            Logger.getLogger(vendas.class.getName()).log(Level.SEVERE, null, ex);
-            
-        }
+
+
     }//GEN-LAST:event_jComboprodutoPopupMenuWillBecomeVisible
 
     /**

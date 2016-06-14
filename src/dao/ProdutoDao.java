@@ -90,7 +90,7 @@ public class ProdutoDao {
 
                 objpat.executeUpdate();
                 JOptionPane.showMessageDialog(null, "produto deletado no banco com sucesso");
-
+               objbanco.desconectar();
             }
 
         } catch (SQLException ex) {
@@ -100,28 +100,19 @@ public class ProdutoDao {
 
     }
 
-    public List<Produto> listar() throws SQLException {
-        List<Produto> lista = new ArrayList<Produto>();
+    public ResultSet listar() throws SQLException  {
+        
         ResultSet tabela;
-        Statement state;
         BancoMySQL banco = new BancoMySQL();
+       banco.conectar();
         String sql = "SELECT * from produtos";
+        PreparedStatement prepstl =banco.conexao.prepareStatement(sql);
+        
+        tabela=prepstl.executeQuery();
 
-        state = banco.conexao.prepareStatement(sql);
-        tabela = state.executeQuery(sql);
+        
 
-        tabela.beforeFirst();
-
-        while (tabela.next()) {
-
-            Produto produto = new Produto();
-            produto.setNome(tabela.getString("nome"));
-            produto.setPreço(tabela.getFloat("preço"));
-            lista.add(produto);
-
-        }
-
-        return lista;
+        return tabela;
 
     }
 }

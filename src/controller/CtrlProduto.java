@@ -6,6 +6,7 @@
 package controller;
 
 import dao.ProdutoDao;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import model.Produto;
@@ -37,7 +38,7 @@ public class CtrlProduto {
         objDao.inserir(objeto);
     }
 
-    public List<Produto> CtrlListarProduto() throws SQLException {
+    public ResultSet CtrlListarProduto() throws SQLException {
 
         ProdutoDao objDao = new ProdutoDao();
         return objDao.listar();
