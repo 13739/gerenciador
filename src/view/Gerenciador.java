@@ -5,29 +5,15 @@
  */
 package view;
 
-import controller.CtrlCliente;
 import controller.CtrlReceita;
-import dao.ClienteDao;
-import dao.ProdutoDao;
 import dao.ReceitaDao;
 import dao.VendaDao;
-import util.BancoMySQL;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import model.Cliente;
 import model.Receita;
 import model.Venda;
-import sun.java2d.pipe.SpanShapeRenderer.Simple;
-import static sun.misc.Version.println;
 
 /**
  *

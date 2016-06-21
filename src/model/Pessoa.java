@@ -14,7 +14,7 @@ import java.util.Date;
    abstract class Pessoa {
 
     private String nome;
-    private String endereço;
+    private String endereco;
     private String email;
     private int cpf;
     private String telefone;
@@ -37,15 +37,15 @@ import java.util.Date;
     /**
      * @return the endereço
      */
-    public String getEndereço() {
-        return endereço;
+    public String getEndereco() {
+        return endereco;
     }
 
     /**
      * @param endereço the endereço to set
      */
-    public void setEndereço(String endereço) {
-        this.endereço = endereço;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     /**

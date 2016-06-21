@@ -5,16 +5,31 @@
  */
 package view;
 
+import dao.funcionarioDao;
+import java.sql.SQLException;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import model.Funcionario;
+
 /**
  *
  * @author mestre
  */
 public class PagaComissao extends javax.swing.JFrame {
 
+    funcionarioDao fd = new funcionarioDao();
+    
     /**
      * Creates new form PagaComissao
      */
     public PagaComissao() {
+        try {
+            fd.listaFuncionarios();
+        } catch (SQLException ex) {
+            Logger.getLogger(PagaComissao.class.getName()).log(Level.SEVERE, null, ex);
+        }
         initComponents();
     }
 
@@ -43,17 +58,21 @@ public class PagaComissao extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jbOk = new javax.swing.JButton();
+        jbVoltar = new javax.swing.JButton();
+        jbSalvar = new javax.swing.JButton();
+        jbFecharCaixa = new javax.swing.JButton();
+        jbQuebra = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Colaborador:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Vendas acumuladas:");
 
@@ -79,16 +98,31 @@ public class PagaComissao extends javax.swing.JFrame {
 
         jTextField5.setText("jTextField5");
 
-        jButton1.setText("OK");
-        jButton1.setMaximumSize(new java.awt.Dimension(70, 32));
-        jButton1.setMinimumSize(new java.awt.Dimension(70, 32));
-        jButton1.setPreferredSize(new java.awt.Dimension(70, 32));
+        jbOk.setText("OK");
+        jbOk.setMaximumSize(new java.awt.Dimension(70, 32));
+        jbOk.setMinimumSize(new java.awt.Dimension(70, 32));
+        jbOk.setPreferredSize(new java.awt.Dimension(70, 32));
+        jbOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoOk(evt);
+            }
+        });
 
-        jButton2.setText("Sair");
-        jButton2.setPreferredSize(new java.awt.Dimension(70, 32));
+        jbVoltar.setText("Voltar");
+        jbVoltar.setPreferredSize(new java.awt.Dimension(70, 32));
+        jbVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVoltar(evt);
+            }
+        });
 
-        jButton3.setText("Salvar");
-        jButton3.setPreferredSize(new java.awt.Dimension(70, 32));
+        jbSalvar.setText("Salvar");
+        jbSalvar.setPreferredSize(new java.awt.Dimension(70, 32));
+        jbSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSalvar(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -104,9 +138,9 @@ public class PagaComissao extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jbOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -117,22 +151,22 @@ public class PagaComissao extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton4.setText("Fechar Caixa");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jbFecharCaixa.setText("Fechar Caixa");
+        jbFecharCaixa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jbFecharCaixaActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Quebra");
+        jbQuebra.setText("Quebra");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -160,9 +194,9 @@ public class PagaComissao extends javax.swing.JFrame {
                                         .addGap(37, 37, 37)
                                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jbQuebra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jbFecharCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -202,8 +236,8 @@ public class PagaComissao extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4)
-                            .addComponent(jButton5))))
+                            .addComponent(jbFecharCaixa)
+                            .addComponent(jbQuebra))))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -225,9 +259,58 @@ public class PagaComissao extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jbFecharCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFecharCaixaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jbFecharCaixaActionPerformed
+
+    private void botaoVoltar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltar
+        //Retornando sem salvar alterações
+        //dispose();
+        
+        Funcionario obj = new Funcionario();
+        
+        obj.setCargo("Vendedor");
+        obj.setComissao((float) 12.50);
+        obj.setCpf(33518297);
+        obj.setEmail("moises.deangelo@gmail.com");
+        obj.setEndereco("Rua Ary Silveira Azambuja, 550");
+        obj.setNome("Moises Diego");
+        obj.setSalario((float) 321.5);
+        obj.setSenha("3322");
+        
+        funcionarioDao fDao = new funcionarioDao();
+        
+        fDao.inserir(obj);
+
+        Funcionario obj1 = new Funcionario();
+        
+        obj1.setCargo("Vendedor Classe 2");
+        obj1.setComissao((float) 10.50);
+        obj1.setCpf(97825133);
+        obj1.setEmail("lewris@ig.com.br");
+        obj1.setEndereco("Rua Azambuja, 551");
+        obj1.setNome("Henrique Deangelo");
+        obj1.setSalario((float) 621.5);
+        obj1.setSenha("2202");
+        
+        fDao.inserir(obj1);
+        
+    }//GEN-LAST:event_botaoVoltar
+
+    private void botaoSalvar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvar
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoSalvar
+
+    private void botaoOk(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoOk
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoOk
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,11 +348,6 @@ public class PagaComissao extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -286,5 +364,10 @@ public class PagaComissao extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JButton jbFecharCaixa;
+    private javax.swing.JButton jbOk;
+    private javax.swing.JButton jbQuebra;
+    private javax.swing.JButton jbSalvar;
+    private javax.swing.JButton jbVoltar;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class BancoMySQL {
 
-    String url = "jdbc:mysql://127.0.0.1:3306/banco";
+    String url = "C:/Users/mestre/Documents/GitHub/gerenciador/build/classes/banco";
     String usuario = "root";
     String senha = "deadlock15";
     public Connection conexao = null;

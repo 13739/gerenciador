@@ -5,18 +5,25 @@
  */
 package model;
 
+import java.util.Date;
+
 /**
  *
  * @author Daniel
  */
 public class Funcionario extends Pessoa{
    private int idFuncionario;
+   private String nome;
+   private String endereco;
+   private int cpf;
    private int rg;
+   private String telefone;
+   private float comissao;
    private float salario;
-   private float comissão;
-   private float porcentagem;
+   private Date dataNascimento;
    private String senha;
    private String cargo;
+   private float porcentagem;
 
     /**
      * @return the idFuncionario
@@ -30,6 +37,53 @@ public class Funcionario extends Pessoa{
      */
     public void setIdFuncionario(int idFuncionario) {
         this.idFuncionario = idFuncionario;
+    }
+
+    /**
+     * @return the nome
+     */
+    public String getNome() {
+        return nome;
+    }
+    
+   @Override
+    public String toString(){
+        return this.nome;
+    }
+
+    /**
+     * @param nome the nome to set
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    /**
+     * @return the endereco
+     */
+    public String getEndereco() {
+        return endereco;
+    }
+
+    /**
+     * @param endereco the endereco to set
+     */
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    /**
+     * @return the cpf
+     */
+    public int getCpf() {
+        return cpf;
+    }
+
+    /**
+     * @param cpf the cpf to set
+     */
+    public void setCpf(int cpf) {
+        this.cpf = cpf;
     }
 
     /**
@@ -47,6 +101,36 @@ public class Funcionario extends Pessoa{
     }
 
     /**
+     * @return the telefone
+     */
+   @Override
+    public String getTelefone() {
+        return telefone;
+    }
+
+    /**
+     * @param telefone the telefone to set
+     */
+   @Override
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    /**
+     * @return the comissão
+     */
+    public float getComissao() {
+        return comissao;
+    }
+
+    /**
+     * @param comissao
+     */
+    public void setComissao(float comissao) {
+        this.comissao = comissao;
+    }
+
+    /**
      * @return the salario
      */
     public float getSalario() {
@@ -61,17 +145,19 @@ public class Funcionario extends Pessoa{
     }
 
     /**
-     * @return the comissão
+     * @return the dataNascimento
      */
-    public float getComissão() {
-        return comissão;
+   @Override
+    public Date getDataNascimento() {
+        return dataNascimento;
     }
 
     /**
-     * @param comissão the comissão to set
+     * @param dataNascimento the dataNascimento to set
      */
-    public void setComissão(float comissão) {
-        this.comissão = comissão;
+   @Override
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     /**
@@ -101,6 +187,23 @@ public class Funcionario extends Pessoa{
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
+
+    /**
+     * @return the porcentagem
+     */
+    public float getPorcentagem() {
+        return porcentagem;
+    }
+
+    /**
+     * @param porcentagem the porcentagem to set
+     */
+    public void setPorcentagem(float porcentagem) {
+        this.porcentagem = porcentagem;
+    }
+     
+
+    
    
 
     
