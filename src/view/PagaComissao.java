@@ -6,31 +6,47 @@
 package view;
 
 import dao.funcionarioDao;
+import java.awt.Dimension;
+import java.util.List;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Set;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ComboBoxModel;
 import model.Funcionario;
+import util.BancoMySQL;
+
 
 /**
  *
  * @author mestre
  */
 public class PagaComissao extends javax.swing.JFrame {
-
-    funcionarioDao fd = new funcionarioDao();
+    
+    //Carregando
+    BancoMySQL bd = new BancoMySQL();
+    ResultSet rsFunc, rsReceita;
+    float vendasAcumuladasMes = 0;
+    float vendasAcumuladasDia = 0;
+    float comissaoAcumuladaMes = 0;
+    float comissaoAcumuladaDia = 0;
     
     /**
      * Creates new form PagaComissao
      */
-    public PagaComissao() {
+    public PagaComissao() {        
         try {
-            fd.listaFuncionarios();
+            //Conectando ao BD
+            bd.conectar();
         } catch (SQLException ex) {
             Logger.getLogger(PagaComissao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         initComponents();
+        listaElementosJComboBox();
     }
 
     /**
@@ -82,21 +98,47 @@ public class PagaComissao extends javax.swing.JFrame {
 
         jLabel5.setText("Comissão diária:");
 
-        jTextField1.setText("jTextField1");
+        jTextField1.setEditable(false);
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField1.setMinimumSize(new java.awt.Dimension(73, 24));
+        jTextField1.setPreferredSize(new Dimension(73,25));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
-        jTextField2.setText("jTextField2");
+        jTextField2.setEditable(false);
+        jTextField2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField2.setMinimumSize(new java.awt.Dimension(73, 24));
+        jTextField2.setPreferredSize(new Dimension(73,25));
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
-        jTextField3.setText("jTextField3");
+        jTextField3.setEditable(false);
+        jTextField3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField3.setMinimumSize(new java.awt.Dimension(73, 24));
+        jTextField3.setPreferredSize(new Dimension(73,25));
 
-        jTextField4.setText("jTextField4");
+        jTextField4.setEditable(false);
+        jTextField4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField4.setMinimumSize(new java.awt.Dimension(73, 24));
+        jTextField4.setPreferredSize(new Dimension(73,25));
 
         jLabel7.setText("Saque comissão:");
 
         jTextField6.setText("jTextField6");
+        jTextField6.setMinimumSize(new java.awt.Dimension(73, 24));
+        jTextField6.setPreferredSize(new Dimension(73,25));
 
         jLabel6.setText("Saldo em caixa:");
 
-        jTextField5.setText("jTextField5");
+        jTextField5.setEditable(false);
+        jTextField5.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField5.setPreferredSize(new Dimension(91,25));
 
         jbOk.setText("OK");
         jbOk.setMaximumSize(new java.awt.Dimension(70, 32));
@@ -200,7 +242,7 @@ public class PagaComissao extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(26, 26, 26)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -259,42 +301,32 @@ public class PagaComissao extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void listaElementosJComboBox(){
+        
+        //Lendo nome de funcionários
+        rsFunc = bd.executarconsulta("SELECT idFuncionario, nome FROM funcionarios");
+        
+        try {
+            //Inserindo primeiro item
+            jComboBox1.addItem("Selecione um funcionário!");
+            
+            //Enquanto houver o que listar, será impresso
+            while(rsFunc.next()){
+                //Adicionando item
+                jComboBox1.addItem(rsFunc.getString("nome"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PagaComissao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void jbFecharCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFecharCaixaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbFecharCaixaActionPerformed
 
     private void botaoVoltar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltar
         //Retornando sem salvar alterações
-        //dispose();
-        
-        Funcionario obj = new Funcionario();
-        
-        obj.setCargo("Vendedor");
-        obj.setComissao((float) 12.50);
-        obj.setCpf(33518297);
-        obj.setEmail("moises.deangelo@gmail.com");
-        obj.setEndereco("Rua Ary Silveira Azambuja, 550");
-        obj.setNome("Moises Diego");
-        obj.setSalario((float) 321.5);
-        obj.setSenha("3322");
-        
-        funcionarioDao fDao = new funcionarioDao();
-        
-        fDao.inserir(obj);
-
-        Funcionario obj1 = new Funcionario();
-        
-        obj1.setCargo("Vendedor Classe 2");
-        obj1.setComissao((float) 10.50);
-        obj1.setCpf(97825133);
-        obj1.setEmail("lewris@ig.com.br");
-        obj1.setEndereco("Rua Azambuja, 551");
-        obj1.setNome("Henrique Deangelo");
-        obj1.setSalario((float) 621.5);
-        obj1.setSenha("2202");
-        
-        fDao.inserir(obj1);
-        
+        dispose();        
     }//GEN-LAST:event_botaoVoltar
 
     private void botaoSalvar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvar
@@ -306,12 +338,168 @@ public class PagaComissao extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoOk
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
+        //Identificando funcionario selecionado
+        String func = (String)jComboBox1.getSelectedItem();
+        boolean haVendasMes = false;
+        boolean haVendasDia = false;
+        boolean haComissaoMes = false;
+        boolean haComissaoDia = false;
         
         
+        if(!func.equals("Selecione um funcionário!")){
+            try {
+                //Retornando
+                rsFunc.beforeFirst();
+                
+                //Zerando variável
+                vendasAcumuladasMes = 0;
+                vendasAcumuladasDia = 0;
+                comissaoAcumuladaMes = 0;
+                comissaoAcumuladaDia = 0;
+                
+                //Percorrendo
+                while(rsFunc.next()){
+                    if(func.equalsIgnoreCase(rsFunc.getString("nome"))){
+                        String temp = "SELECT data, comissao, valor FROM Receitas WHERE funcionariosIDFuncionario = " + rsFunc.getInt("idFuncionario");
+                        
+                        System.out.println("String: " + temp);
+                        rsReceita = bd.executarconsulta(temp);
+                        
+                        //Listando vendas do funcionário
+                        while(rsReceita.next()){
+                            //Listando comissão acumulada no mês
+                            if(rsReceita.getString("data").substring(0, 7).equalsIgnoreCase(getDateTime().substring(0, 7))){
+                                //System.out.println("Compras: " + rsReceita.getString("data") + " Lido: " + getDateTime());
+                                
+                                vendasAcumuladasMes += Float.parseFloat(rsReceita.getString("valor"));
+                                comissaoAcumuladaMes += Float.parseFloat(rsReceita.getString("comissao"));
+                            }
+                            
+                            //Listando comissão acumulada no dia
+                            if(rsReceita.getString("data").substring(0, 10).equalsIgnoreCase(getDateTime().substring(0, 10))){
+                                //System.out.println("Compras: " + rsReceita.getString("data") + " Lido: " + getDateTime());
+                                
+                                vendasAcumuladasDia += Float.parseFloat(rsReceita.getString("valor"));
+                                comissaoAcumuladaDia += Float.parseFloat(rsReceita.getString("comissao"));
+                            }
+                        }
+                        
+                        haVendasMes = vendasAcumuladasMes > 0;
+                        haVendasDia = vendasAcumuladasDia > 0;
+                        haComissaoMes = comissaoAcumuladaMes > 0;
+                        haComissaoDia = comissaoAcumuladaDia > 0;
+                               
+                        break;
+                    }
+                }
+                
+                if(haVendasMes){
+                    jTextField1.setText(String.format("%.2f", vendasAcumuladasMes));
+                    System.out.println("Vendas Total: " + vendasAcumuladasMes);
+                }
+                else{
+                    jTextField1.setText("0.00");
+                }
+                
+                if(haVendasDia){
+                    jTextField3.setText(String.format("%.2f", vendasAcumuladasDia));
+                }
+                else{
+                    jTextField3.setText("0.00");
+                }
+                
+                if(haComissaoMes){
+                    jTextField2.setText(String.format("%.2f", comissaoAcumuladaMes));
+                }
+                else{
+                    jTextField2.setText("0.00");
+                }
+                
+                if(haComissaoDia){
+                    jTextField4.setText(String.format("%.2f", comissaoAcumuladaDia));
+                }
+                else{
+                    jTextField4.setText("0.00");
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(PagaComissao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
+                        
+        Date d2 = new Date();
+        /*        
+        //Lendo nome de funcionários
+        //ResultSet rs = bd.executarconsulta("SELECT data FROM Receitas WHERE funcionariosIDFuncionario = ?");
+        
+        try {
+            //Enquanto houver o que listar, será impresso
+            while(rs.next()){
+                //Adicionando item
+                if(rs.getString("dataNascimento").equalsIgnoreCase(getDateTime())){
+                    System.out.println(rs.getString("dataNascimento") + " Lido: " + getDateTime());
+                }
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PagaComissao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        */
+                     
+        System.out.println("Seleção: " + func + "Data: " + d2 + "Data: " + getDateTime());
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private String getDateTimeF2() {
+	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd 00:00:00.000");
+	Date date = new Date();
+	return dateFormat.format(date);
+    }
+    
+    private String getDateTime() {
+	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	Date date = new Date();
+	return dateFormat.format(date);
+    }
+    
+    //Listando por data
+    /*public List<Funcionarios> getListaByData(Date data) throws SQLException {
+        String sql = " select * from anavend where data BETWEEN ? AND ?";
+        
+        
+        java.sql.PreparedStatement stmt = this.conexao.prepareStatement(sql);
+        stmt.setDate(1, data);
+        stmt.setDate(2, data);
+        ResultSet rs = stmt.executeQuery();
+        List<Anavend> listaByData = new ArrayList<Anavend>();
+        while (rs.next()) {
+            Anavend vend = new Anavend();
+            vend.setData(rs.getString("data"));
+            vend.setVendedor(rs.getString("vend"));
+            vend.setLoja(rs.getString("loja"));
+            vend.setValor(Double.parseDouble(rs.getString("valorVendido")));
+            listaByData.add(vend);
+        }
+        rs.close();
+        stmt.close();
+        return listaByData;
+    }*/
+    
+    /*private String getDateTime() {
+	//DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	Date date = new Date();
+	return dateFormat.format(date);
+    }*/
+    
     /**
      * @param args the command line arguments
      */

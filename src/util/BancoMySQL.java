@@ -18,9 +18,9 @@ import javax.swing.JOptionPane;
  */
 public class BancoMySQL {
 
-    String url = "C:/Users/mestre/Documents/GitHub/gerenciador/build/classes/banco";
+    String url = "jdbc:mysql://127.0.0.1:3306/banco";
     String usuario = "root";
-    String senha = "deadlock15";
+    String senha = "3351";
     public Connection conexao = null;
 
     public void conectar() throws SQLException {
@@ -31,7 +31,7 @@ public class BancoMySQL {
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "problema na coneção e driver do banco" + ex);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "problema ao se conectar no banco");
+            JOptionPane.showMessageDialog(null, "problema ao se conectar no banco" + ex);
         }
     }
 

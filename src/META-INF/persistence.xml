@@ -9,4 +9,14 @@
       <property name="javax.persistence.jdbc.password" value="deadlock15"/>
     </properties>
   </persistence-unit>
+  <persistence-unit name="bancoPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>view.Funcionarios</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/banco"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="3351"/>
+    </properties>
+  </persistence-unit>
 </persistence>

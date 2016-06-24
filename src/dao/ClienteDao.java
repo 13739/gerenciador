@@ -37,7 +37,7 @@ public class ClienteDao {
 
             //seta os valores no banco
             objpat.setString(1, obj.getNome());
-            objpat.setString(2, obj.getEndereço());
+            objpat.setString(2, obj.getEndereco());
             objpat.setString(3, obj.getEmail());
             objpat.setDate(4, datasql);
             objpat.setString(5, obj.getTelefone());
@@ -69,7 +69,7 @@ public class ClienteDao {
 
             //seta os valores no banco
             objpat.setString(1, obj.getNome());
-            objpat.setString(2, obj.getEndereço());
+            objpat.setString(2, obj.getEndereco());
             objpat.setString(3, obj.getEmail());
             objpat.setDate(4, datasql);
             objpat.setString(5, obj.getTelefone());

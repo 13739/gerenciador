@@ -214,7 +214,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         client.setCpf(Integer.parseInt(jTcpf.getText()));
         client.setEmail(jTemail.getText());
         client.setTelefone(jTtelefone.getText());
-        client.setEndereço(jTendereço.getText());
+        client.setEndereco(jTendereço.getText());
         
         
         //bloco data 
